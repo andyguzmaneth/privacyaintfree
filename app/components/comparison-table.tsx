@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import solutionsData from "../../data/solutions.json";
 
 type CostUnit = "USD" | "ETH" | "GAS";
+type SortColumn = "name" | "type" | "privacyLevel" | "ethTransfer" | "erc20Transfer" | "speed" | "ux";
+type SortDirection = "asc" | "desc" | null;
 
 interface CostData {
   usd: string;
@@ -32,13 +34,112 @@ function formatCost(cost: CostData, unit: CostUnit): string {
   }
 }
 
+function parseCostValue(value: string): number {
+  if (value === "N/A" || value.includes("N/A")) {
+    return Infinity;
+  }
+  // Extract first number from range like "$0.50 - $2.00" or "0.0002 - 0.0008 ETH"
+  const match = value.match(/[\d.]+/);
+  return match ? parseFloat(match[0]) : Infinity;
+}
+
+function compareValues(a: string, b: string): number {
+  const numA = parseCostValue(a);
+  const numB = parseCostValue(b);
+  
+  if (numA === Infinity && numB === Infinity) return 0;
+  if (numA === Infinity) return 1;
+  if (numB === Infinity) return -1;
+  
+  return numA - numB;
+}
+
+function getSortValue(solution: Solution, column: SortColumn, costUnit: CostUnit): string | number {
+  switch (column) {
+    case "name":
+      return solution.name;
+    case "type":
+      return solution.type;
+    case "privacyLevel":
+      return solution.privacyLevel;
+    case "ethTransfer":
+      return formatCost(solution.ethTransfer, costUnit);
+    case "erc20Transfer":
+      return formatCost(solution.erc20Transfer, costUnit);
+    case "speed":
+      return solution.speed;
+    case "ux":
+      return solution.ux;
+  }
+}
+
 export function ComparisonTable() {
   const [costUnit, setCostUnit] = useState<CostUnit>("USD");
+  const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
 
   const baseline: Solution = solutionsData.baseline;
-  const privacySolutions: Solution[] = solutionsData.solutions;
+  const allSolutions: Solution[] = solutionsData.solutions;
 
   const costUnits: CostUnit[] = ["USD", "ETH", "GAS"];
+
+  const sortedSolutions = useMemo(() => {
+    if (!sortColumn || !sortDirection) {
+      return allSolutions;
+    }
+
+    const sorted = [...allSolutions].sort((a, b) => {
+      const aVal = getSortValue(a, sortColumn, costUnit);
+      const bVal = getSortValue(b, sortColumn, costUnit);
+
+      if (typeof aVal === "string" && typeof bVal === "string") {
+        // For cost columns, parse and compare numerically
+        if (sortColumn === "ethTransfer" || sortColumn === "erc20Transfer") {
+          const comparison = compareValues(aVal, bVal);
+          return sortDirection === "asc" ? comparison : -comparison;
+        }
+        // For text columns, do string comparison
+        const comparison = aVal.localeCompare(bVal);
+        return sortDirection === "asc" ? comparison : -comparison;
+      }
+
+      return 0;
+    });
+
+    return sorted;
+  }, [allSolutions, sortColumn, sortDirection, costUnit]);
+
+  function handleSort(column: SortColumn) {
+    if (sortColumn === column) {
+      // Cycle through: asc -> desc -> null
+      if (sortDirection === "asc") {
+        setSortDirection("desc");
+      } else if (sortDirection === "desc") {
+        setSortDirection(null);
+        setSortColumn(null);
+      }
+    } else {
+      setSortColumn(column);
+      setSortDirection("asc");
+    }
+  }
+
+  function SortIndicator({ column }: { column: SortColumn }) {
+    if (sortColumn !== column) {
+      return (
+        <span className="ml-1 inline-block text-zinc-400 opacity-0 group-hover:opacity-50">
+          ↕
+        </span>
+      );
+    }
+    if (sortDirection === "asc") {
+      return <span className="ml-1 text-zinc-600 dark:text-zinc-400">↑</span>;
+    }
+    if (sortDirection === "desc") {
+      return <span className="ml-1 text-zinc-600 dark:text-zinc-400">↓</span>;
+    }
+    return null;
+  }
 
   return (
     <div className="rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
@@ -64,26 +165,68 @@ export function ComparisonTable() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-zinc-200 dark:border-zinc-800">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                Solution
+              <th
+                onClick={() => handleSort("name")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  Solution
+                  <SortIndicator column="name" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                Type
+              <th
+                onClick={() => handleSort("type")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  Type
+                  <SortIndicator column="type" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                Privacy Level
+              <th
+                onClick={() => handleSort("privacyLevel")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  Privacy Level
+                  <SortIndicator column="privacyLevel" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                ETH Transfer Cost
+              <th
+                onClick={() => handleSort("ethTransfer")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  ETH Transfer Cost
+                  <SortIndicator column="ethTransfer" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                ERC-20 Transfer Cost
+              <th
+                onClick={() => handleSort("erc20Transfer")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  ERC-20 Transfer Cost
+                  <SortIndicator column="erc20Transfer" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                Speed
+              <th
+                onClick={() => handleSort("speed")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  Speed
+                  <SortIndicator column="speed" />
+                </div>
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:px-6">
-                UX
+              <th
+                onClick={() => handleSort("ux")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  UX
+                  <SortIndicator column="ux" />
+                </div>
               </th>
             </tr>
           </thead>
@@ -111,7 +254,7 @@ export function ComparisonTable() {
                 {baseline.ux}
               </td>
             </tr>
-            {privacySolutions.map((solution) => (
+            {sortedSolutions.map((solution) => (
               <tr
                 key={solution.name}
                 className="border-b border-zinc-200 dark:border-zinc-800"

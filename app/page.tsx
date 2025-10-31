@@ -25,6 +25,11 @@ export default function Home() {
             Here's a comparison of how much it costs for simple private transfers of ETH and ERC-20 tokens versus a standard transparent transfer.
           </p>
 
+          <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-300">
+            <span className="font-medium">⚠️ WIP:</span>
+            <span>This is vibe coded, data is not reflective of reality yet</span>
+          </div>
+
           <ComparisonTable />
         </section>
 
