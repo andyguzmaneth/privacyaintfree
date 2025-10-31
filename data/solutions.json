@@ -1,0 +1,634 @@
+{
+  "baseline": {
+    "name": "Standard Transparent Transfer",
+    "type": "Baseline",
+    "privacyLevel": "None",
+    "ethTransfer": {
+      "usd": "$0.50 - $2.00",
+      "eth": "0.0002 - 0.0008 ETH",
+      "gas": "21,000 - 65,000"
+    },
+    "erc20Transfer": {
+      "usd": "$0.50 - $2.00",
+      "eth": "0.0002 - 0.0008 ETH",
+      "gas": "21,000 - 65,000"
+    },
+    "speed": "Instant",
+    "ux": "Excellent"
+  },
+  "solutions": [
+    {
+      "name": "Tornado Cash",
+      "type": "Mixers",
+      "privacyLevel": "High",
+      "ethTransfer": {
+        "usd": "$10.00 - $30.00",
+        "eth": "0.004 - 0.012 ETH",
+        "gas": "300,000 - 900,000"
+      },
+      "erc20Transfer": {
+        "usd": "$15.00 - $40.00",
+        "eth": "0.006 - 0.016 ETH",
+        "gas": "450,000 - 1,200,000"
+      },
+      "speed": "5-15 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "Privacy Pools",
+      "type": "Mixers",
+      "privacyLevel": "High",
+      "ethTransfer": {
+        "usd": "$5.00 - $15.00",
+        "eth": "0.002 - 0.006 ETH",
+        "gas": "150,000 - 450,000"
+      },
+      "erc20Transfer": {
+        "usd": "$8.00 - $20.00",
+        "eth": "0.003 - 0.008 ETH",
+        "gas": "200,000 - 600,000"
+      },
+      "speed": "2-5 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Veil Cash (Base)",
+      "type": "Mixers",
+      "privacyLevel": "High",
+      "ethTransfer": {
+        "usd": "$4.00 - $12.00",
+        "eth": "0.0016 - 0.0048 ETH",
+        "gas": "120,000 - 360,000"
+      },
+      "erc20Transfer": {
+        "usd": "$6.00 - $18.00",
+        "eth": "0.0024 - 0.0072 ETH",
+        "gas": "180,000 - 540,000"
+      },
+      "speed": "2-4 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Railgun",
+      "type": "Shielded Pools (+DeFi)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$3.00 - $10.00",
+        "eth": "0.0012 - 0.004 ETH",
+        "gas": "100,000 - 300,000"
+      },
+      "erc20Transfer": {
+        "usd": "$5.00 - $15.00",
+        "eth": "0.002 - 0.006 ETH",
+        "gas": "150,000 - 450,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Blanksquare",
+      "type": "Shielded Pools (+DeFi)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$3.50 - $11.00",
+        "eth": "0.0014 - 0.0044 ETH",
+        "gas": "110,000 - 330,000"
+      },
+      "erc20Transfer": {
+        "usd": "$5.50 - $16.00",
+        "eth": "0.0022 - 0.0064 ETH",
+        "gas": "165,000 - 480,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Umbra Cash",
+      "type": "Stealth Addresses",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Fluidkey",
+      "type": "Stealth Addresses",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Curvy",
+      "type": "Stealth Addresses",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Arcane",
+      "type": "Stealth Addresses / Wallet",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Mind",
+      "type": "Stealth Addresses",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Tongo (HE)",
+      "type": "Encrypted Tokens",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$8.00 - $25.00",
+        "eth": "0.0032 - 0.01 ETH",
+        "gas": "240,000 - 750,000"
+      },
+      "speed": "3-8 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "Zama (FHE)",
+      "type": "Encrypted Tokens",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$10.00 - $30.00",
+        "eth": "0.004 - 0.012 ETH",
+        "gas": "300,000 - 900,000"
+      },
+      "speed": "5-12 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "INCO (TEE)",
+      "type": "Encrypted Tokens / Private L2 (TEE-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$6.00 - $18.00",
+        "eth": "0.0024 - 0.0072 ETH",
+        "gas": "180,000 - 540,000"
+      },
+      "erc20Transfer": {
+        "usd": "$8.00 - $22.00",
+        "eth": "0.0032 - 0.0088 ETH",
+        "gas": "240,000 - 660,000"
+      },
+      "speed": "2-6 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Fluton (FHE)",
+      "type": "Encrypted Tokens",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$10.00 - $30.00",
+        "eth": "0.004 - 0.012 ETH",
+        "gas": "300,000 - 900,000"
+      },
+      "speed": "5-12 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "Exosphere (FHE stablecoin)",
+      "type": "Encrypted Tokens",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$9.00 - $28.00",
+        "eth": "0.0036 - 0.0112 ETH",
+        "gas": "270,000 - 840,000"
+      },
+      "speed": "4-10 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "Fairblock",
+      "type": "Encrypted Tokens",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$8.00 - $25.00",
+        "eth": "0.0032 - 0.01 ETH",
+        "gas": "240,000 - 750,000"
+      },
+      "speed": "3-8 min",
+      "ux": "Fair"
+    },
+    {
+      "name": "EIP-7503/WORM",
+      "type": "zkWormholes - PPoB",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.50 - $8.00",
+        "eth": "0.001 - 0.0032 ETH",
+        "gas": "75,000 - 240,000"
+      },
+      "erc20Transfer": {
+        "usd": "$3.00 - $9.00",
+        "eth": "0.0012 - 0.0036 ETH",
+        "gas": "90,000 - 270,000"
+      },
+      "speed": "1-4 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Scroll [2]",
+      "type": "zkWormholes - PPoB / Private L2 (Prividiums)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.00 - $6.00",
+        "eth": "0.0008 - 0.0024 ETH",
+        "gas": "60,000 - 180,000"
+      },
+      "erc20Transfer": {
+        "usd": "$2.50 - $7.00",
+        "eth": "0.001 - 0.0028 ETH",
+        "gas": "75,000 - 210,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Sigil 7503 precompile",
+      "type": "zkWormholes - PPoB",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.50 - $8.00",
+        "eth": "0.001 - 0.0032 ETH",
+        "gas": "75,000 - 240,000"
+      },
+      "erc20Transfer": {
+        "usd": "$3.00 - $9.00",
+        "eth": "0.0012 - 0.0036 ETH",
+        "gas": "90,000 - 270,000"
+      },
+      "speed": "1-4 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Mirage",
+      "type": "Statistical Obfuscators & Solvers",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.80 - $4.50",
+        "eth": "0.00072 - 0.0018 ETH",
+        "gas": "54,000 - 135,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.80 - $4.50",
+        "eth": "0.00072 - 0.0018 ETH",
+        "gas": "54,000 - 135,000"
+      },
+      "speed": "Instant - 1 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Unlink",
+      "type": "Statistical Obfuscators & Solvers",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.80 - $4.50",
+        "eth": "0.00072 - 0.0018 ETH",
+        "gas": "54,000 - 135,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.80 - $4.50",
+        "eth": "0.00072 - 0.0018 ETH",
+        "gas": "54,000 - 135,000"
+      },
+      "speed": "Instant - 1 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Brume (Tor)",
+      "type": "Wallets",
+      "privacyLevel": "Low-Medium",
+      "ethTransfer": {
+        "usd": "$0.50 - $2.00",
+        "eth": "0.0002 - 0.0008 ETH",
+        "gas": "21,000 - 65,000"
+      },
+      "erc20Transfer": {
+        "usd": "$0.50 - $2.00",
+        "eth": "0.0002 - 0.0008 ETH",
+        "gas": "21,000 - 65,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "zkBob",
+      "type": "Wallets (Shielded Pools)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$3.50 - $11.00",
+        "eth": "0.0014 - 0.0044 ETH",
+        "gas": "110,000 - 330,000"
+      },
+      "erc20Transfer": {
+        "usd": "$5.50 - $16.00",
+        "eth": "0.0022 - 0.0064 ETH",
+        "gas": "165,000 - 480,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Payy (Validium)",
+      "type": "Wallets (Validium) / Private L2 (Prividiums)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.00 - $6.00",
+        "eth": "0.0008 - 0.0024 ETH",
+        "gas": "60,000 - 180,000"
+      },
+      "erc20Transfer": {
+        "usd": "$2.50 - $7.00",
+        "eth": "0.001 - 0.0028 ETH",
+        "gas": "75,000 - 210,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Hinkal",
+      "type": "Wallets",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Kohaku",
+      "type": "Wallets",
+      "privacyLevel": "Medium",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.50 - $4.00",
+        "eth": "0.0006 - 0.0016 ETH",
+        "gas": "45,000 - 120,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Cake Wallet (Tor)",
+      "type": "Wallets",
+      "privacyLevel": "Low-Medium",
+      "ethTransfer": {
+        "usd": "$0.50 - $2.00",
+        "eth": "0.0002 - 0.0008 ETH",
+        "gas": "21,000 - 65,000"
+      },
+      "erc20Transfer": {
+        "usd": "$0.50 - $2.00",
+        "eth": "0.0002 - 0.0008 ETH",
+        "gas": "21,000 - 65,000"
+      },
+      "speed": "Instant",
+      "ux": "Excellent"
+    },
+    {
+      "name": "ZKSync Prividiums (EVM)",
+      "type": "Private L2 (Prividiums)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.00 - $6.00",
+        "eth": "0.0008 - 0.0024 ETH",
+        "gas": "60,000 - 180,000"
+      },
+      "erc20Transfer": {
+        "usd": "$2.50 - $7.00",
+        "eth": "0.001 - 0.0028 ETH",
+        "gas": "75,000 - 210,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "USX (stablecoin)",
+      "type": "Private L2 (Prividiums)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "N/A",
+        "eth": "N/A",
+        "gas": "N/A"
+      },
+      "erc20Transfer": {
+        "usd": "$2.00 - $6.00",
+        "eth": "0.0008 - 0.0024 ETH",
+        "gas": "60,000 - 180,000"
+      },
+      "speed": "1-3 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Violet's proposal",
+      "type": "Private L2 (Appchain Blobs)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$2.50 - $7.00",
+        "eth": "0.001 - 0.0028 ETH",
+        "gas": "75,000 - 210,000"
+      },
+      "erc20Transfer": {
+        "usd": "$3.00 - $8.00",
+        "eth": "0.0012 - 0.0032 ETH",
+        "gas": "90,000 - 240,000"
+      },
+      "speed": "1-4 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Aztec (EVM)",
+      "type": "Private L2 (ZK-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$3.00 - $9.00",
+        "eth": "0.0012 - 0.0036 ETH",
+        "gas": "90,000 - 270,000"
+      },
+      "erc20Transfer": {
+        "usd": "$3.50 - $10.00",
+        "eth": "0.0014 - 0.004 ETH",
+        "gas": "105,000 - 300,000"
+      },
+      "speed": "2-5 min",
+      "ux": "Good"
+    },
+    {
+      "name": "EY Nightfall (EVM)",
+      "type": "Private L2 (ZK-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$3.00 - $9.00",
+        "eth": "0.0012 - 0.0036 ETH",
+        "gas": "90,000 - 270,000"
+      },
+      "erc20Transfer": {
+        "usd": "$3.50 - $10.00",
+        "eth": "0.0014 - 0.004 ETH",
+        "gas": "105,000 - 300,000"
+      },
+      "speed": "2-5 min",
+      "ux": "Good"
+    },
+    {
+      "name": "PSE zkPlasma Fold",
+      "type": "Private L2 (Plasma channels)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$1.50 - $4.50",
+        "eth": "0.0006 - 0.0018 ETH",
+        "gas": "45,000 - 135,000"
+      },
+      "erc20Transfer": {
+        "usd": "$1.80 - $5.00",
+        "eth": "0.00072 - 0.002 ETH",
+        "gas": "54,000 - 150,000"
+      },
+      "speed": "Instant - 2 min",
+      "ux": "Excellent"
+    },
+    {
+      "name": "Ten Protocol",
+      "type": "Private L2 (TEE-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$6.00 - $18.00",
+        "eth": "0.0024 - 0.0072 ETH",
+        "gas": "180,000 - 540,000"
+      },
+      "erc20Transfer": {
+        "usd": "$8.00 - $22.00",
+        "eth": "0.0032 - 0.0088 ETH",
+        "gas": "240,000 - 660,000"
+      },
+      "speed": "2-6 min",
+      "ux": "Good"
+    },
+    {
+      "name": "COTI (MPC/Garbled-based - EVM)",
+      "type": "Private L2 (MPC-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$4.00 - $12.00",
+        "eth": "0.0016 - 0.0048 ETH",
+        "gas": "120,000 - 360,000"
+      },
+      "erc20Transfer": {
+        "usd": "$5.00 - $14.00",
+        "eth": "0.002 - 0.0056 ETH",
+        "gas": "150,000 - 420,000"
+      },
+      "speed": "2-5 min",
+      "ux": "Good"
+    },
+    {
+      "name": "Obscura",
+      "type": "Private L2 (FHE-based)",
+      "privacyLevel": "Very High",
+      "ethTransfer": {
+        "usd": "$8.00 - $25.00",
+        "eth": "0.0032 - 0.01 ETH",
+        "gas": "240,000 - 750,000"
+      },
+      "erc20Transfer": {
+        "usd": "$10.00 - $30.00",
+        "eth": "0.004 - 0.012 ETH",
+        "gas": "300,000 - 900,000"
+      },
+      "speed": "4-10 min",
+      "ux": "Fair"
+    }
+  ]
+}
+
