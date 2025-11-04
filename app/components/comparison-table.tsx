@@ -3,8 +3,8 @@
 import { useState, useMemo } from "react";
 import solutionsData from "../../data/solutions.json";
 
-type CostUnit = "USD" | "ETH" | "GAS";
-type SortColumn = "name" | "type" | "privacyLevel" | "ethTransfer" | "erc20Transfer" | "speed" | "ux";
+type CostUnit = "USD" | "ETH" | "Gwei";
+type SortColumn = "name" | "type" | "privacyLevel" | "ethTransfer" | "erc20Approval" | "erc20Transfer" | "speed" | "ux";
 type SortDirection = "asc" | "desc" | null;
 
 interface CostData {
@@ -18,6 +18,7 @@ interface Solution {
   type: string;
   privacyLevel: string;
   ethTransfer: CostData;
+  erc20Approval?: CostData;
   erc20Transfer: CostData;
   speed: string;
   ux: string;
@@ -29,7 +30,7 @@ function formatCost(cost: CostData, unit: CostUnit): string {
       return cost.usd;
     case "ETH":
       return cost.eth;
-    case "GAS":
+    case "Gwei":
       return cost.gas;
   }
 }
@@ -64,6 +65,8 @@ function getSortValue(solution: Solution, column: SortColumn, costUnit: CostUnit
       return solution.privacyLevel;
     case "ethTransfer":
       return formatCost(solution.ethTransfer, costUnit);
+    case "erc20Approval":
+      return solution.erc20Approval ? formatCost(solution.erc20Approval, costUnit) : "N/A";
     case "erc20Transfer":
       return formatCost(solution.erc20Transfer, costUnit);
     case "speed":
@@ -81,7 +84,7 @@ export function ComparisonTable() {
   const baseline: Solution = solutionsData.baseline;
   const allSolutions: Solution[] = solutionsData.solutions;
 
-  const costUnits: CostUnit[] = ["USD", "ETH", "GAS"];
+  const costUnits: CostUnit[] = ["USD", "ETH", "Gwei"];
 
   const sortedSolutions = useMemo(() => {
     if (!sortColumn || !sortDirection) {
@@ -94,7 +97,7 @@ export function ComparisonTable() {
 
       if (typeof aVal === "string" && typeof bVal === "string") {
         // For cost columns, parse and compare numerically
-        if (sortColumn === "ethTransfer" || sortColumn === "erc20Transfer") {
+        if (sortColumn === "ethTransfer" || sortColumn === "erc20Approval" || sortColumn === "erc20Transfer") {
           const comparison = compareValues(aVal, bVal);
           return sortDirection === "asc" ? comparison : -comparison;
         }
@@ -139,6 +142,30 @@ export function ComparisonTable() {
       return <span className="ml-1 text-zinc-600 dark:text-zinc-400">↓</span>;
     }
     return null;
+  }
+
+  function InfoIcon({ tooltip }: { tooltip: string }) {
+    return (
+      <div className="group/info relative ml-1.5 inline-flex">
+        <svg
+          className="h-4 w-4 cursor-help text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Information"
+        >
+          <path
+            fillRule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+            clipRule="evenodd"
+          />
+        </svg>
+        <div className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 hidden -translate-x-1/2 transform whitespace-nowrap rounded-md bg-zinc-900 px-2 py-1 text-xs text-white shadow-lg transition-opacity group-hover/info:block group-hover/info:opacity-100 dark:bg-zinc-100 dark:text-zinc-900">
+          {tooltip}
+          <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-100"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -198,7 +225,18 @@ export function ComparisonTable() {
               >
                 <div className="flex items-center">
                   ETH Transfer Cost
+                  <InfoIcon tooltip="Gwei to transfer ETH from address A to address B" />
                   <SortIndicator column="ethTransfer" />
+                </div>
+              </th>
+              <th
+                onClick={() => handleSort("erc20Approval")}
+                className="group cursor-pointer px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-100 md:px-6"
+              >
+                <div className="flex items-center">
+                  ERC-20 Approval Cost
+                  <InfoIcon tooltip="Gwei to approve ERC-20 token transfer from address A to address B" />
+                  <SortIndicator column="erc20Approval" />
                 </div>
               </th>
               <th
@@ -207,6 +245,7 @@ export function ComparisonTable() {
               >
                 <div className="flex items-center">
                   ERC-20 Transfer Cost
+                  <InfoIcon tooltip="Gwei to transfer ERC-20 token from address A to address B" />
                   <SortIndicator column="erc20Transfer" />
                 </div>
               </th>
@@ -245,6 +284,9 @@ export function ComparisonTable() {
                 {formatCost(baseline.ethTransfer, costUnit)}
               </td>
               <td className="px-4 py-4 text-zinc-700 dark:text-zinc-300 md:px-6">
+                {baseline.erc20Approval ? formatCost(baseline.erc20Approval, costUnit) : "N/A"}
+              </td>
+              <td className="px-4 py-4 text-zinc-700 dark:text-zinc-300 md:px-6">
                 {formatCost(baseline.erc20Transfer, costUnit)}
               </td>
               <td className="px-4 py-4 text-zinc-600 dark:text-zinc-400 md:px-6">
@@ -270,6 +312,9 @@ export function ComparisonTable() {
                 </td>
                 <td className="px-4 py-4 text-zinc-700 dark:text-zinc-300 md:px-6">
                   {formatCost(solution.ethTransfer, costUnit)}
+                </td>
+                <td className="px-4 py-4 text-zinc-700 dark:text-zinc-300 md:px-6">
+                  {solution.erc20Approval ? formatCost(solution.erc20Approval, costUnit) : "N/A"}
                 </td>
                 <td className="px-4 py-4 text-zinc-700 dark:text-zinc-300 md:px-6">
                   {formatCost(solution.erc20Transfer, costUnit)}
